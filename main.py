@@ -11,7 +11,7 @@ show_pages(
         Section(name="Cool apps", icon=":pig:"),
         # The pages appear in the order you pass them
         Page("menu/exam_four.py", "Example Four", "📖"),
-        Page("menu/exam_two.py", "Example Two", "✏️"),
+        Page("menu/exam_two.py", "Data Loader Performances", "✏️"),
         Section(name="Other apps", icon=":horse:"),
         # Will use the default icon and name based on the filename if you don't
         # pass them

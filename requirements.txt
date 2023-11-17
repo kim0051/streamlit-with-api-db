@@ -1,0 +1,5 @@
+streamlit
+st_pages
+mysql-connector-python
+pandas
+requests
