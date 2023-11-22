@@ -1,5 +1,8 @@
 streamlit
+streamlit_authenticator
+streamlit-folium
 st_pages
 mysql-connector-python
 pandas
 requests
+pyodbc
