@@ -8,12 +8,15 @@ def callPage(page = None):
     data = response_API.json()
     return data
 
-add_page_title(layout="wide")
+st.set_page_config(page_title="Logs", layout="wide")
+
+# add_page_title(layout="wide")
 
 st.write("API Data")
 
 # st.write("This is just a sample page!")
 url = 'http://localhost:8080/ewacspro/api/logs/loader-hauler'
+# url = 'http://localhost:8080/ewacspro/api/load-data/PAMA2/LoaderPerformances'
 data = callPage(url)
 if 'currentPage' not in st.session_state:
     currentPage = data["current_page"]
