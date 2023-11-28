@@ -53,6 +53,7 @@ custom_css="""
         font-size: 2rem;
     }
 """
+st.divider()
 st.subheader("Calendar")
 calendar = calendar(events=None, options=calendar_options, custom_css=custom_css)
 st.write(calendar)

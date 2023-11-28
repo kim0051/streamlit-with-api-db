@@ -1,6 +1,8 @@
 import streamlit as st
 from st_pages import Page, Section, hide_pages, add_page_title, show_pages
 import extra_streamlit_components as stx
+import requests
+import json
 
 # st.title("Login Page :door:")
 # add_page_title(layout="wide")
@@ -12,22 +14,41 @@ def get_manager():
 st.set_page_config(page_title="Login Page", layout="wide", page_icon=":door:", menu_items=None)
 
 st.title("Login Page :door:")
-
+st.divider()
 cookie_manager = get_manager()
 cookie_manager.get_all()
 
+def checkResponse(username, password):
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+
+    data = {
+        "username": username,
+        "password": password
+    }
+
+    response = requests.post(st.secrets.auth_url, headers=headers, data=json.dumps(data))
+
+    if response.status_code == 200:
+        if response.json()["success"] == True:
+            cookie_manager.set("user_logged_in", response.json())
+            return True
+        else:
+            st.error(response.json()["message"])
+            return False
+    else:
+        st.error(str(response.status_code) + " - Something went wrong")
+        return False
+        
 def checkPassword():
     def validateData(username, password):
         if username == "" or password == "":
             st.error("Please fill username and password first.")
             return False
-        if username == "admin" and password == "admin":
-            cookie_manager.set("username", username)
-            return True
-        else:
-            st.error("The username or password you have entered is invalid.")
-            return False
-    if cookie_manager.get(cookie="username") != None:
+        checkResponse(username, password)
+    if cookie_manager.get(cookie="user_logged_in") != None:
         return True
     username = st.text_input("Username")
     password = st.text_input("Password", type="password", key="password")
@@ -40,7 +61,7 @@ if not checkPassword():
     # st.markdown("""<style>[data-testid="stSidebar"] {display: none} [data-testid="collapsedControl"] { display: none }</style>""", unsafe_allow_html=True)
     st.stop()
 
-if cookie_manager.get(cookie="username") != None:
+if cookie_manager.get(cookie="user_logged_in") != None:
     show_pages(
         [
             Page("menu/dashboard.py", "Dashboard", "💼"),
