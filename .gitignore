@@ -1,3 +1,2 @@
-.idea/.gitignore
 .streamlit/secrets.toml
 .streamlit/config.toml

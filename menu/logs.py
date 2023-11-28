@@ -16,7 +16,6 @@ st.write("API Data")
 
 # st.write("This is just a sample page!")
 url = st.secrets["log_url"]
-# url = 'http://localhost:8080/ewacspro/api/load-data/PAMA2/LoaderPerformances'
 data = callPage(url)
 if 'currentPage' not in st.session_state:
     currentPage = data["current_page"]
