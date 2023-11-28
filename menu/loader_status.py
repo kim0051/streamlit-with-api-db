@@ -8,7 +8,7 @@ add_page_title(layout="wide")
 
 st.write("SQL Data")
 
-conn = pyodbc.connect("DRIVER={SQL Server}; Server=kpcsgt-db04; UID=test_ryan; PWD=samarinda123; Database=TEST_DEV")
+conn = pyodbc.connect("DRIVER={SQL Server}; Server="+st.secrets.db_credentials.server+"; UID="+st.secrets.db_credentials.username+"; PWD="+st.secrets.db_credentials.password+"; Database="+st.secrets.db_credentials.database1+"")
 
 def filterData(area, loader, series, start_date, end_date):
     # Add your filtering logic here

@@ -4,4 +4,7 @@ st_pages
 pandas
 requests
 pyodbc
-streamlit-cookies-manager
+extra-streamlit-components-better-cookie-manager
+barfi
+streamlit-ace
+streamlit-calendar
