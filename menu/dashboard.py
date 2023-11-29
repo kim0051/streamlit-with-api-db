@@ -19,18 +19,23 @@ if uploaded_files is not None:
     
     if save_path.exists():
         st.toast(f'File {uploaded_files.name} is successfully saved!', icon='😍')
-
+        # st.session_state[uploaded_files.name] = "has_set"
+    
 list_file = os.listdir("images")
-st.session_state['list_file'] = list_file
-if 'list_file' in st.session_state:
-    if len(st.session_state['list_file']) > 0:
-        for file in st.session_state['list_file']:
-            st.image("images/" + file, width=300, caption=file)
-            if st.button("Delete Image "+file):
-                os.remove("images/" + file)
-                st.toast(f'File {file} is successfully deleted!', icon='😍')
-                st.session_state['list_file'].remove(file)
-                st.rerun()
+# st.session_state['list_file'] = list_file
+# if 'list_file' in st.session_state:
+    # print(len(st.session_state['list_file']))
+    # if len(st.session_state['list_file']) > 0:
+for file in list_file:
+    # st.session_state[file] = "has_set"
+    # if st.session_state[file] == "has_set":
+    st.image("images/" + file, width=300, caption=file)
+    if st.button("Delete Image "+file):
+        os.remove("images/" + file)
+        if os.path.exists("images/" + file) == False:
+            st.toast(f'File {file} is successfully deleted!', icon='😍')
+            st.rerun()
+pass
 
 calendar_options = {
     "headerToolbar": {
