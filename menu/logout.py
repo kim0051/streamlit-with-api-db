@@ -12,7 +12,7 @@ user_logged_in = cookie_manager.get(cookie="user_logged_in")
 add_page_title(layout="wide")
 
 if user_logged_in is not None:
-    st.write("Hello, " + user_logged_in["id"] + " - " + user_logged_in["username"] + "!")
+    st.write("Hello, " + user_logged_in["idalesco"] + " - " + user_logged_in["username"] + "!")
     st.write("Your position is " + user_logged_in["position"] + "!")
     st.warning("Do you really, wanna logout from this apps?")
     if st.button("Logout"):

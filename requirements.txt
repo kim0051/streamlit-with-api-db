@@ -8,3 +8,4 @@ extra-streamlit-components-better-cookie-manager
 barfi
 streamlit-ace
 streamlit-calendar
+SQLAlchemy
