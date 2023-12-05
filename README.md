@@ -1,1 +1,1 @@
-# STREAMLIT connection with API and postgresql DB
+# STREAMLIT connection with API and SQL Server Database (Using SQLAlchemy)
