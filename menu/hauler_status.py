@@ -16,7 +16,7 @@ conn = connection_url.connect()
 
 def generateChart(series, start_date, end_date):
     # Chart by area
-    query_chart1 = text("SELECT area, SUM(CAST(" + series + " AS FLOAT)) as "+series+" FROM "+st.secrets.tbl_haulers+" where date >= '" + start_date.strftime("%Y-%m-%d") + "' and date <= '" + end_date.strftime("%Y-%m-%d") + "' GROUP BY area")
+    query_chart1 = text("SELECT area, SUM(CAST(" + series + " AS FLOAT)) as "+series+" FROM "+st.secrets.tbl_hs+" where date >= '" + start_date.strftime("%Y-%m-%d") + "' and date <= '" + end_date.strftime("%Y-%m-%d") + "' GROUP BY area")
     data_chart1 = pd.read_sql(query_chart1, conn)
     if(data_chart1.empty == False):
         chart1 = pd.DataFrame(data_chart1)
@@ -24,7 +24,7 @@ def generateChart(series, start_date, end_date):
         st.bar_chart(data=chart1, use_container_width=True, x='area', y=series, color="#8ecae6")
     
     # Chart by date
-    query_chart2 = text("SELECT date, SUM(CAST(" + series + " AS FLOAT)) as "+series+" FROM "+st.secrets.tbl_haulers+" where date >= '" + start_date.strftime("%Y-%m-%d") + "' and date <= '" + end_date.strftime("%Y-%m-%d") + "' GROUP BY date")
+    query_chart2 = text("SELECT date, SUM(CAST(" + series + " AS FLOAT)) as "+series+" FROM "+st.secrets.tbl_hs+" where date >= '" + start_date.strftime("%Y-%m-%d") + "' and date <= '" + end_date.strftime("%Y-%m-%d") + "' GROUP BY date")
     data_chart2 = pd.read_sql_query(query_chart2, conn)
     if(data_chart2.empty == False):
         chart2 = pd.DataFrame(data_chart2)
@@ -32,7 +32,7 @@ def generateChart(series, start_date, end_date):
         st.bar_chart(data=chart2, use_container_width=True, x='date', y=series, color="#ffe6a7")
 
     # Chart by equipment
-    query_chart3 = text("SELECT EQUIPMENT, SUM(CAST(" + series + " AS FLOAT)) as "+series+" FROM "+st.secrets.tbl_haulers+" where date >= '" + start_date.strftime("%Y-%m-%d") + "' and date <= '" + end_date.strftime("%Y-%m-%d") + "' GROUP BY EQUIPMENT")
+    query_chart3 = text("SELECT EQUIPMENT, SUM(CAST(" + series + " AS FLOAT)) as "+series+" FROM "+st.secrets.tbl_hs+" where date >= '" + start_date.strftime("%Y-%m-%d") + "' and date <= '" + end_date.strftime("%Y-%m-%d") + "' GROUP BY EQUIPMENT")
     data_chart3 = pd.read_sql_query(query_chart3, conn)
     if(data_chart3.empty == False):
         chart3 = pd.DataFrame(data_chart3)
@@ -42,7 +42,7 @@ def generateChart(series, start_date, end_date):
 @st.cache_data(ttl=300)
 def filterData(area, loader, series, start_date, end_date):
     # Add your filtering logic here
-    query = text("SELECT * FROM "+st.secrets.tbl_haulers+" where date >= '" + start_date.strftime("%Y-%m-%d") + "' and date <= '" + end_date.strftime("%Y-%m-%d") + "'")
+    query = text("SELECT * FROM "+st.secrets.tbl_hs+" where date >= '" + start_date.strftime("%Y-%m-%d") + "' and date <= '" + end_date.strftime("%Y-%m-%d") + "'")
     if(area != 'ALL'):
         query += " and area = '" + area + "'"
     if(loader != 'ALL'):
@@ -62,8 +62,8 @@ def runQuery(query):
     data = pd.read_sql_query(sqlText, conn)
     return data
 
-area = runQuery("SELECT DISTINCT area FROM "+st.secrets.tbl_haulers+"")
-equipment = runQuery("SELECT DISTINCT EQUIPMENT FROM "+st.secrets.tbl_haulers+"")
+area = runQuery("SELECT DISTINCT area FROM "+st.secrets.tbl_hs+"")
+equipment = runQuery("SELECT DISTINCT EQUIPMENT FROM "+st.secrets.tbl_hs+"")
 new_area = loopFetchData(area['area'])
 new_equipment = loopFetchData(equipment['EQUIPMENT'])
 series = ["HOUR", "Production", "Down", "Idle", "General_Work", "Total_Delay_dur"]
