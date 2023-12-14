@@ -1,5 +1,4 @@
 # STREAMLIT connection with API and postgresql DB
-
 This project is based on python and streamlit library for UI.
 
 # Configuration
@@ -12,7 +11,7 @@ Before using this application make sure to:
 - If you don't have `.streamlit` folder. Create new folder first at root folder.
 - Setting new configuration at `secrets.toml` file like :
 ```
-password = "12345"
+password = "{your password here}"
 latitude_sgt = "{add your latitude here}"
 longitude_sgt = "{add your longitude here}"
 location_name = "{add name of location}"
